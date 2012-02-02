@@ -5,7 +5,7 @@
     <% if @locate_user.nil? %>
       <h3>This link is somehow incorrect, please try again.</h3>
     <% else %>
-      <h3>Hi <%= @locate_user.name %></h3>
+      <h3>Hi <%= @locate_user.name %></h3><br>
         <div class="well">
           <button onclick="get_location(); return false;" type="submit" style="width:100%;" class="btn btn-primary btn-large">Share Location</button>
       </div>
@@ -17,35 +17,21 @@
 
 <script>
 function get_location() {
-  if(navigator.geolocation) {
-    browserSupportFlag = true;
-    navigator.geolocation.getCurrentPosition(function(position) {
-      alert(position.coords.latitude);
-      //act
-    }, function() {
-      handleNoGeolocation(browserSupportFlag);
-    });
-  // Try Google Gears Geolocation
-  } else if (google.gears) {
-    browserSupportFlag = true;
-    var geo = google.gears.factory.create('beta.geolocation');
-    geo.getCurrentPosition(function(position) {
-      
-    }, function() {
-      handleNoGeoLocation(browserSupportFlag);
-    });
-  // Browser doesn't support Geolocation
-  } else {
-    browserSupportFlag = false;
-    handleNoGeolocation(browserSupportFlag);
+  if(geo_position_js.init()){
+    geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true,options:5000});
+  }
+  else{
+    alert("Functionality not available");
+  }
+
+  function success_callback(p)
+  {
+    alert('lat='+p.coords.latitude.toFixed(2)+';lon='+p.coords.longitude.toFixed(2));
   }
   
-  function handleNoGeolocation(errorFlag) {
-    if (errorFlag == true) {
-      alert("Geolocation service failed.");
-    } else {
-      alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-    }
+  function error_callback(p)
+  {
+    alert('error='+p.message);
   } 
 }
 </script>

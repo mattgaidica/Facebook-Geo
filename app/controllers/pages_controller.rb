@@ -4,7 +4,7 @@ class PagesController < ApplicationController
 
   def sms
     if current_user
-      body = "Share your location with Adrian College GEO http://facebookgeo.herokuapp.com/" + current_user.uid
+      body = "Share your location with Adrian College GEO http://facebookgeo.herokuapp.com/locate/" + current_user.uid
       Twilio::SMS.create  :to => params[:number], 
                           :from => '6502654544',
                           :body => body
