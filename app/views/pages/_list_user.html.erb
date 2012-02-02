@@ -1,4 +1,4 @@
-<li class="nav-header">People <span style="font-size:11px;color:#aaa;font-weight:normal;">from past 2hrs</span></li>
+<li class="nav-header">People <span style="font-size:11px;color:#aaa;font-weight:normal;">from past 5hrs</span></li>
 <% @positions.each do |position| %>
   <% list_user = User.find_by_uid(position.uid) %>
   <li style="padding-top:10px;padding-bottom:10px;"><a id="<%= position.uid %>" onclick="bounce('<%= position.uid %>');" href="#"><img style="height:36px;float:left;margin-right:13px;" src="<%= list_user.image %>"/><%= list_user.name %><span style="font-size:11px;color:#ccc;display:block;">updated <%= time_ago_in_words(position.updated_at) %> ago</span></a></li>

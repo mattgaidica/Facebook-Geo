@@ -3,7 +3,7 @@ class PagesController < ApplicationController
     if params[:place]
       @place = params[:place]
     end
-    two_hours = Time.current - 2.hours
+    two_hours = Time.current - 5.hours
     @positions = Position.order("updated_at").where("updated_at > '#{two_hours}'").reverse
   end
 
@@ -34,7 +34,7 @@ class PagesController < ApplicationController
     @position.save
 
     location = { :latitude => params[:latitude], :longitude => params[:longitude] }
-    two_hours = Time.current - 2.hours
+    two_hours = Time.current - 5.hours
     @positions = Position.order("updated_at").where("updated_at > '#{two_hours}'").reverse
     content = render_to_string(:partial => "pages/list_user")
     user = User.find_by_uid(params[:uid])
