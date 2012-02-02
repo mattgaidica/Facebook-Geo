@@ -7,6 +7,7 @@
     <% if @locate_user.nil? %>
       <h3>This link is somehow incorrect, please try again.</h3>
     <% else %>
+      <div id="thanks" style="display:none;" class="alert alert-success well">Thank you!</div>
       <h3>Hi <%= @locate_user.name %></h3><br>
         <div class="well">
           <button id="share" type="submit" style="width:100%;" class="btn btn-primary btn-large">Share Location</button>
@@ -42,6 +43,7 @@ function handle_errors(error)
 
 function handle_geolocation_query(position){  
   $.post("/update", { latitude: position.coords.latitude, longitude: position.coords.longitude, uid: <%= @locate_user.uid %> } );
+  $("#thanks").fadeIn().delay(1500).fadeOut();
   /*
     alert('Lat: ' + position.coords.latitude +  
           ' Lon: ' + position.coords.latitude);  
