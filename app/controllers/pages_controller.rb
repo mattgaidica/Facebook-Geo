@@ -4,7 +4,7 @@ class PagesController < ApplicationController
       @place = params[:place]
     end
     two_hours = Time.current - 2.hours
-    @positions = Position.order("updated_at").where("updated_at > '#{two_hours}'")
+    @positions = Position.order("updated_at").where("updated_at > '#{two_hours}'").reverse
   end
 
   def sms
@@ -35,7 +35,7 @@ class PagesController < ApplicationController
 
     location = { :latitude => params[:latitude], :longitude => params[:longitude] }
     two_hours = Time.current - 2.hours
-    @positions = Position.order("updated_at").where("updated_at > '#{two_hours}'")
+    @positions = Position.order("updated_at").where("updated_at > '#{two_hours}'").reverse
     content = render_to_string(:partial => "pages/list_user")
     user = User.find_by_uid(params[:uid])
     Pusher['adrian_geo'].trigger('new_location', {
