@@ -9,7 +9,7 @@
     <% else %>
       <h3>Hi <%= @locate_user.name %></h3><br>
         <div class="well">
-          <button id="share" onclick="get_location(); return false;" type="submit" style="width:100%;" class="btn btn-primary btn-large">Share Location</button>
+          <button id="share" type="submit" style="width:100%;" class="btn btn-primary btn-large">Share Location</button>
       </div>
     <% end %>
     </center>
@@ -19,16 +19,16 @@
 
 <script>
 $(function() {  
-  jQuery("#share").click(initiate_geolocation);  
+  $("#share").click(initiate_geolocation);  
 });  
 
 function initiate_geolocation() {  
-navigator.geolocation.getCurrentPosition(handle_geolocation_query);  
+  navigator.geolocation.getCurrentPosition(handle_geolocation_query);  
 }  
 
-function handle_geolocation_query(position){  
-alert('Lat: ' + position.coords.latitude + ' ' +  
-      'Lon: ' + position.coords.latitude);  
+function handle_geolocation_query(position) {  
+  alert('Lat: ' + position.coords.latitude + ' ' +  
+        'Lon: ' + position.coords.latitude);  
 }  
   
 </script>
