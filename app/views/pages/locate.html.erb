@@ -9,7 +9,7 @@
     <% else %>
       <h3>Hi <%= @locate_user.name %></h3><br>
         <div class="well">
-          <button onclick="get_location(); return false;" type="submit" style="width:100%;" class="btn btn-primary btn-large">Share Location</button>
+          <button id="share" onclick="get_location(); return false;" type="submit" style="width:100%;" class="btn btn-primary btn-large">Share Location</button>
       </div>
     <% end %>
     </center>
@@ -18,26 +18,17 @@
 </div><!--/span-->
 
 <script>
-function get_location() {
-  if(geo_position_js.init()){
-    geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true,options:5000});
-  }
-  else{
-    update_div("Functionality not available");
-  }
+$(function() {  
+  jQuery("#share").click(initiate_geolocation);  
+});  
 
-  function success_callback(p)
-  {
-    update_div('lat='+p.coords.latitude.toFixed(2)+';lon='+p.coords.longitude.toFixed(2));
-  }
+function initiate_geolocation() {  
+navigator.geolocation.getCurrentPosition(handle_geolocation_query);  
+}  
+
+function handle_geolocation_query(position){  
+alert('Lat: ' + position.coords.latitude + ' ' +  
+      'Lon: ' + position.coords.latitude);  
+}  
   
-  function error_callback(p)
-  {
-    update_div('error='+p.message);
-  }
-}
-
-function update_div(message) {
-  $('#here').html(message);
-}
 </script>
