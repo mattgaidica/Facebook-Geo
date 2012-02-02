@@ -1,0 +1,51 @@
+<div class="span12">
+
+  <div style="padding:14px;" class="well sidebar-nav">
+    <center>
+    <% if @locate_user.nil? %>
+      <h3>This link is somehow incorrect, please try again.</h3>
+    <% else %>
+      <h3>Hi <%= @locate_user.name %></h3>
+        <div class="well">
+          <button onclick="get_location(); return false;" type="submit" style="width:100%;" class="btn btn-primary btn-large">Share Location</button>
+      </div>
+    <% end %>
+    </center>
+  </div>
+
+</div><!--/span-->
+
+<script>
+function get_location() {
+  if(navigator.geolocation) {
+    browserSupportFlag = true;
+    navigator.geolocation.getCurrentPosition(function(position) {
+      alert(position.coords.latitude);
+      //act
+    }, function() {
+      handleNoGeolocation(browserSupportFlag);
+    });
+  // Try Google Gears Geolocation
+  } else if (google.gears) {
+    browserSupportFlag = true;
+    var geo = google.gears.factory.create('beta.geolocation');
+    geo.getCurrentPosition(function(position) {
+      
+    }, function() {
+      handleNoGeoLocation(browserSupportFlag);
+    });
+  // Browser doesn't support Geolocation
+  } else {
+    browserSupportFlag = false;
+    handleNoGeolocation(browserSupportFlag);
+  }
+  
+  function handleNoGeolocation(errorFlag) {
+    if (errorFlag == true) {
+      alert("Geolocation service failed.");
+    } else {
+      alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
+    }
+  } 
+}
+</script>

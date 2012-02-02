@@ -1,0 +1,37 @@
+<div class="span9">
+  <div style="padding:19px;" class="hero-unit">
+    <div id="map"></div>
+  </div>
+</div><!--/span-->
+<div class="span3">
+
+  <div style="padding:14px;" class="well sidebar-nav">
+    <center>
+      <% if !current_user %>
+        <a href="/auth/facebook"><img src="http://f.cl.ly/items/272O012s0U2G0L2Q2U0K/facebook_button.png"/></a>
+      <% else %>
+        <% if flash[:message] %>
+          <div style="margin-bottom:0;" class="alert alert-success well"><%= flash[:message] %></div>
+        <% else %>
+          <h2>Join the Party</h2><br>
+          <%= form_tag("/sms", :method => "post", :class => "well") do %>
+            <div style="padding-right:10px;>">
+            <input name="number" id="phone-number" style="width:100%;" class="input-xlarge" type="text" placeholder="your phone number"/></div>
+            <button onclick="if ( $('#phone-number').val() == '' ) { $('#phone-number').css('border', 'red 1px solid'); return false; }" type="submit" style="width:100%;" class="btn">Locate by SMS</button>
+          <% end %>
+        <% end %>
+      <% end %>
+    </center>
+  </div>
+
+  <div class="well sidebar-nav">
+    <ul class="nav nav-list">
+      <li class="nav-header">People</li>
+      <li class="active"><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+      <li><a href="#">Link</a></li>
+    </ul>
+  </div><!--/.well -->
+
+</div><!--/span-->

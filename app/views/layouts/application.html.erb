@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Adrian College Geo</title>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <script src="http://js.pusher.com/1.11/pusher.min.js"></script>
+  <%= csrf_meta_tags %>
+
+  <script type="text/javascript">
+    /*
+    var pusher = new Pusher("<%= Pusher.key %>");
+    var channel = pusher.subscribe('test_channel');
+    channel.bind('my_event', function(data) {
+      alert(data);
+    });
+    */
+
+    $(function() { // or $(document).ready(function(){
+      $("#map").gmap3({
+        action: 'init',
+        options:{
+          center:[41.896761,-84.062065],
+          zoom:15
+        }
+      });
+      $('#map').gmap3({
+        action: 'addMarker',
+        latLng:[41.896161,-84.062515],
+        options:{
+          animation: google.maps.Animation.DROP
+        }
+      });
+
+      $('#map').gmap3({
+        action: 'addMarker',
+        latLng:[41.896761,-84.0620],
+        options:{
+          animation: google.maps.Animation.DROP
+        }
+      });
+
+    });
+
+  </script>
+
+  <style type="text/css">
+    #map {
+      width:100%; 
+      height:400px;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="brand" href="#">Adrian College Geo</a>
+        <div>
+          <% if current_user %>
+            <p class="navbar-text pull-right"><%= current_user.name %>&nbsp;&nbsp;<%= link_to "Sign Out", signout_path %></p>
+          <% end %>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <%= yield %>
+    </div><!--/row-->
+
+    <hr>
+
+    <footer>
+      <p>&copy; Prime 2012</p>
+    </footer>
+
+  </div><!--/.fluid-container-->
+
+</body>
+</html>
