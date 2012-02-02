@@ -1,5 +1,8 @@
 class PagesController < ApplicationController
   def index
+    if params[:place]
+      @place = params[:place]
+    end
     two_hours = Time.current - 2.hours
     @positions = Position.order("updated_at").where("updated_at > '#{two_hours}'")
   end

@@ -12,16 +12,17 @@
   <script type="text/javascript">
 
     $(function() {
-      /*
-      $("#map").gmap3({
+      <% if !@place %>
+        $("#map").gmap3({
         action: 'init',
         options:{
           center:[41.896761,-84.062065],
-          zoom:15
+          zoom:15,
+          disableDefaultUI:true
         }
       });
-      */
-      $("#map").gmap3({
+      <% else %>
+        $("#map").gmap3({
         action: 'init',
         options:{
           center:[37.60315,-122.189004],
@@ -29,6 +30,7 @@
           disableDefaultUI:true
         }
       });
+      <% end %>
 
       <% if @positions %>
         <% @positions.each do |position| %>

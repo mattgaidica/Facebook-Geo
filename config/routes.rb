@@ -8,6 +8,7 @@ Facebookgeo::Application.routes.draw do
   match "/sms" => "pages#sms"
   match "/locate/:uid" => "pages#locate"
   match "/update" => "pages#update"
+  match "/place/:place" => "pages#index" 
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
