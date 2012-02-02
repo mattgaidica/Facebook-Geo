@@ -43,7 +43,7 @@ function handle_errors(error)
 
 function handle_geolocation_query(position){  
   $.post("/update", { latitude: position.coords.latitude, longitude: position.coords.longitude, uid: <%= @locate_user.uid %> } );
-  $("#thanks").fadeIn().delay(1500).fadeOut();
+  $("#thanks").slideDown().delay(1500).slideUp();
   /*
     alert('Lat: ' + position.coords.latitude +  
           ' Lon: ' + position.coords.latitude);  
