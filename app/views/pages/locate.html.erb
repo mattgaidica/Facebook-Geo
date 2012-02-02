@@ -1,5 +1,7 @@
 <div class="span12">
 
+  <div id="here"></div>
+
   <div style="padding:14px;" class="well sidebar-nav">
     <center>
     <% if @locate_user.nil? %>
@@ -21,17 +23,21 @@ function get_location() {
     geo_position_js.getCurrentPosition(success_callback,error_callback,{enableHighAccuracy:true,options:5000});
   }
   else{
-    alert("Functionality not available");
+    update_div("Functionality not available");
   }
 
   function success_callback(p)
   {
-    alert('lat='+p.coords.latitude.toFixed(2)+';lon='+p.coords.longitude.toFixed(2));
+    update_div('lat='+p.coords.latitude.toFixed(2)+';lon='+p.coords.longitude.toFixed(2));
   }
   
   function error_callback(p)
   {
-    alert('error='+p.message);
-  } 
+    update_div('error='+p.message);
+  }
+}
+
+function update_div(message) {
+  $('#here').html(message);
 }
 </script>
