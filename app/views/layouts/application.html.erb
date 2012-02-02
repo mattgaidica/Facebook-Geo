@@ -10,15 +10,9 @@
   <%= csrf_meta_tags %>
 
   <script type="text/javascript">
-    /*
-    var pusher = new Pusher("<%= Pusher.key %>");
-    var channel = pusher.subscribe('test_channel');
-    channel.bind('my_event', function(data) {
-      alert(data);
-    });
-    */
 
-    $(function() { // or $(document).ready(function(){
+    $(function() {
+      /*
       $("#map").gmap3({
         action: 'init',
         options:{
@@ -26,60 +20,46 @@
           zoom:15
         }
       });
-      $('#map').gmap3({
-        action: 'addMarker',
-        latLng:[41.896161,-84.062515],
+      */
+      $("#map").gmap3({
+        action: 'init',
         options:{
-          animation: google.maps.Animation.DROP
+          center:[37.60315,-122.189004],
+          zoom:10,
+          disableDefaultUI:true
         }
       });
 
-      $('#map').gmap3({
-        action: 'addMarker',
-        latLng:[41.896761,-84.0620],
-        options:{
-          animation: google.maps.Animation.DROP
-        }
-      });
+      <% if @positions %>
+        <% @positions.each do |position| %>
+          $('#map').gmap3({
+            action: 'addMarker',
+            latLng:[<%= position.latitude %>,<%= position.longitude %>],
+            tag:'<%= position.uid %>',
+            options:{
+              animation: google.maps.Animation.DROP,
+              icon: new google.maps.MarkerImage('<%= User.find_by_uid(position.uid).image %>', new google.maps.Size(20, 20), new google.maps.Point(0,0), new google.maps.Point(0, 32), new google.maps.Size(25, 25))
+            },
+            events:{
+              mouseover: function(marker){
+                $("#<%= position.uid %>").css("background", "#fff6d1");
+              },
+              mouseout: function() {
+                $("#<%= position.uid %>").css("background", "");
+              }
+            }
+          });
+        <% end %>
+      <% end %>
 
-       
       $("#share").click(initiate_geolocation);  
-    });  
-  
-        function initiate_geolocation() {
-            navigator.geolocation.getCurrentPosition(handle_geolocation_query,handle_errors);  
-        }  
-  
-        function handle_errors(error)  
-        {  
-            switch(error.code)  
-            {  
-                case error.PERMISSION_DENIED: alert("user did not share geolocation data");  
-                break;  
-  
-                case error.POSITION_UNAVAILABLE: alert("could not detect current position");  
-                break;  
-  
-                case error.TIMEOUT: alert("retrieving position timed out");  
-                break;  
-  
-                default: alert("unknown error");  
-                break;  
-            }  
-        }  
-  
-        function handle_geolocation_query(position){  
-            alert('Lat: ' + position.coords.latitude +  
-                  ' Lon: ' + position.coords.latitude);  
-        }  
-
-
+    });
   </script>
 
   <style type="text/css">
     #map {
       width:100%; 
-      height:400px;
+      height:500px;
     }
   </style>
 

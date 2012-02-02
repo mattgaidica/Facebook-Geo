@@ -25,13 +25,43 @@
   </div>
 
   <div class="well sidebar-nav">
-    <ul class="nav nav-list">
-      <li class="nav-header">People</li>
-      <li class="active"><a href="#">Link</a></li>
-      <li><a href="#">Link</a></li>
-      <li><a href="#">Link</a></li>
-      <li><a href="#">Link</a></li>
+    <ul id="people" class="nav nav-list">
+      <%= render :partial => "pages/list_user" %>
     </ul>
   </div><!--/.well -->
 
 </div><!--/span-->
+
+<script>
+var pusher = new Pusher("<%= Pusher.key %>");
+var channel = pusher.subscribe('adrian_geo');
+channel.bind('new_location', function(data) {
+  $("#people").fadeOut(500, function() { $("#people").html(data.content).fadeIn(500); });
+  $('#map').gmap3({action:'clear', name:'marker', tag:data.user.uid}); 
+  $('#map').gmap3({
+    action: 'addMarker',
+    latLng:[data.location.latitude,data.location.longitude],
+    tag:data.user.uid,
+    options:{
+      animation: google.maps.Animation.DROP,
+      icon: new google.maps.MarkerImage(data.user.image, new google.maps.Size(20, 20), new google.maps.Point(0,0), new google.maps.Point(0, 32), new google.maps.Size(25, 25))
+    },
+    events:{
+      mouseover: function(marker){
+        $("#" + data.user.uid).css("background", "#fff6d1");
+      },
+      mouseout: function() {
+        $("#" + data.user.uid).css("background", "");
+      }
+    }
+  });
+});
+
+function bounce(uid) {
+  marker = $('#map').gmap3({action:'get', name:'marker', tag:uid});
+  marker.setAnimation(google.maps.Animation.BOUNCE);
+  setTimeout(function() {
+    marker.setAnimation(null);
+  }, 1300);
+}
+</script>

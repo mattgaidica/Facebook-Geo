@@ -16,3 +16,35 @@
   </div>
 
 </div><!--/span-->
+
+<script>
+function initiate_geolocation() {
+  navigator.geolocation.getCurrentPosition(handle_geolocation_query,handle_errors);  
+}  
+
+function handle_errors(error)  
+{  
+  switch(error.code)  
+  {  
+    case error.PERMISSION_DENIED: alert("Make sure location services are activated.");  
+    break;  
+
+    case error.POSITION_UNAVAILABLE: alert("Could not detect current position.");  
+    break;  
+
+    case error.TIMEOUT: alert("Retrieving position timed out.");  
+    break;  
+
+    default: alert("Unknown error!");  
+    break;  
+  }  
+}  
+
+function handle_geolocation_query(position){  
+  $.post("/update", { latitude: position.coords.latitude, longitude: position.coords.longitude, uid: <%= @locate_user.uid %> } );
+  /*
+    alert('Lat: ' + position.coords.latitude +  
+          ' Lon: ' + position.coords.latitude);  
+  */
+}
+</script>

@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120202052307) do
+ActiveRecord::Schema.define(:version => 20120202111749) do
+
+  create_table "positions", :force => true do |t|
+    t.string   "latitude"
+    t.string   "longitude"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "provider"
