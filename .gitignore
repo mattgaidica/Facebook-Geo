@@ -12,5 +12,5 @@
 /tmp
 .rvmrc
 
-/config/database.yml
-/initializers
+config/database.yml
+initializers

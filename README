@@ -1,5 +1,5 @@
 Check out a screenshot here: http://pr-i.me/FwUo
 
-This application allows users to signin with Facebook using Omniauth, it then attempts to read their location from the browser, and drops a pin on a Google map in realtime using Pusher. It was built as a prototype to see what local checkins on a college campus would look like.
+This application allows users to signin with Facebook using Omniauth, it then asks the user for their phone number, it sends a text via Twilio with a link to the app, then it attempts to use mobile geolocation to locate the person, and finally drops a pin on a Google map in realtime using Pusher. It was built as a prototype to see what local checkins on a college campus would look like.
 
 The sidebar also lists recent activity and provides "click-to-highlight-user" functionality.
